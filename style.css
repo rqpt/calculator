@@ -24,6 +24,7 @@ body {
 	background-position: center center;
 	background-size: 500px;
 }
+
 .calc {
 	display: flex;
 	flex-direction: column;
@@ -35,7 +36,7 @@ body {
 }
 
 .calc  * {
-	border-radius: 8px;
+	border-radius: 15px;
 }
 
 .display {
