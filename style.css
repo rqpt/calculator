@@ -38,22 +38,46 @@ body {
 }
 
 .container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 	aspect-ratio: 660 / 840;
 	width: min(95%, min(660px, 95vh * 660 / 840));
 	margin: auto;
 }
 
 .inputs {
+	align-self: center;
+	width: 90%;
+	padding-block: 2rem;
+	outline: 2px solid black;
 	display: grid;
 	grid-template-columns: repeat(4, 15%);
 	justify-content: center;
-	gap: 2rem;
+	gap: 3rem;
 }
 
+.display {
+	box-shadow: inset 0 10px 15px grey;
+	align-self: center;
+	width: 80%;
+	min-height: 20%;
+}
+
+button {
+	box-shadow: 0 -2px 5px 2px;
+	padding: 1.2rem;
+}
 
 button[data-type='lrg-btn'] {
 	grid-column: span 2;
 }
 
 .poweroff {
+}
+
+/* Utility */
+
+.rounded-corners, button{
+	border-radius: 1rem;
 }
