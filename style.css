@@ -1,0 +1,27 @@
+/* Style */
+
+body {
+	background-color: hsl(0 0% 5%);
+
+}
+
+.container {
+	background-color: hsl(216  65%  61%);
+}
+
+.display {
+	background-color: hsl(94 31% 79%);
+}
+
+/* Layout */
+
+body {
+	display: grid;
+	height: 100vh;
+	margin: 0;
+}
+
+.container {
+	width: 70%;
+	margin: auto;
+}
