@@ -1,5 +1,9 @@
 /* Style */
 
+html {
+	font-size: 62.5%;
+}
+
 body {
 	background-color: hsl(0 0% 5%);
 
@@ -13,7 +17,19 @@ body {
 	background-color: hsl(94 31% 79%);
 }
 
+.button {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
 /* Layout */
+
+
+* {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
 
 body {
 	display: grid;
@@ -22,6 +38,22 @@ body {
 }
 
 .container {
-	width: 70%;
+	aspect-ratio: 660 / 840;
+	width: min(95%, min(660px, 95vh * 660 / 840));
 	margin: auto;
+}
+
+.inputs {
+	display: grid;
+	grid-template-columns: repeat(4, 15%);
+	justify-content: center;
+	gap: 2rem;
+}
+
+
+button[data-type='lrg-btn'] {
+	grid-column: span 2;
+}
+
+.poweroff {
 }
