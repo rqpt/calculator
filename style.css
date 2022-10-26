@@ -48,7 +48,7 @@ body {
 
 .inputs {
 	align-self: center;
-	width: 90%;
+	width: 80%;
 	padding-block: 2rem;
 	outline: 2px solid black;
 	display: grid;
@@ -65,6 +65,7 @@ body {
 }
 
 button {
+	cursor: pointer;
 	box-shadow: 0 -2px 5px 2px;
 	padding: 1.2rem;
 }
@@ -74,6 +75,11 @@ button[data-type='lrg-btn'] {
 }
 
 .poweroff {
+	width: 50%;
+}
+
+#poweroff-btn {
+	background-color: hsl(345 66% 40%);
 }
 
 /* Utility */
