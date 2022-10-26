@@ -1,3 +1,10 @@
+const display = document.querySelector('p');
+const inputs = document.querySelectorAll('button');
+
+inputs.forEach(input.addEventListener('click', (e) => {
+	console.log(e);
+}));
+
 // Operator functions
 
 function add(num1, num2) {
@@ -33,3 +40,6 @@ function operate(operator, num1, num2) {
 			return divide(num1, num2);
 	}
 }
+
+// Display function
+ 
