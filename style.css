@@ -1,6 +1,6 @@
-/* Style */
 
 html {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 62.5%;
 }
 
@@ -22,9 +22,6 @@ body {
 	font-weight: bold;
 }
 
-/* Layout */
-
-
 * {
 	border: 0;
 	margin: 0;
@@ -41,33 +38,35 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	aspect-ratio: 660 / 840;
-	width: min(95%, min(660px, 95vh * 660 / 840));
+	width: 95%;
+	height: 95%;
+	max-width: 660px;
+	max-height: 840px;
 	margin: auto;
 }
 
 .inputs {
 	align-self: center;
-	width: 80%;
+	width: 85%;
 	padding-block: 2rem;
 	outline: 2px solid black;
 	display: grid;
 	grid-template-columns: repeat(4, 15%);
 	justify-content: center;
-	gap: 3rem;
+	gap: 2.5rem;
 }
 
 .display {
 	box-shadow: inset 0 10px 15px grey;
 	align-self: center;
-	width: 80%;
+	width: 75%;
 	min-height: 20%;
 }
 
 button {
 	cursor: pointer;
 	box-shadow: 0 -2px 5px 2px;
-	padding: 1.2rem;
+	padding-block: 0.2rem;
 }
 
 button[data-type='lrg-btn'] {
@@ -78,12 +77,22 @@ button[data-type='lrg-btn'] {
 	width: 50%;
 }
 
-#poweroff-btn {
+.button[data-type=poweroff-btn] {
 	background-color: hsl(345 66% 40%);
 }
 
-/* Utility */
-
 .rounded-corners, button{
-	border-radius: 1rem;
+	border-radius: 0.7rem;
+}
+
+.display {
+	position: relative;
+}
+
+.display p {
+	font-size: 10rem;
+	position: absolute;
+	right: 2rem;
+	bottom: 2rem;
+	text-align: right;
 }
