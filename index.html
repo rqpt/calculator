@@ -10,27 +10,27 @@
 	<body>
 		<div class='container | rounded-corners'>
 			<div class='display | rounded-corners'>
-				<p class='display-content'></p>
+				<p class='displayContent'></p>
 			</div>
 			<div class='inputs | rounded-corners'>
-					<button class='button special' data-type='lrg-btn'>Undo</button>
-					<button class='button special' data-type='poweroff-btn'><img class='poweroff' src='img/poweroff.png'></button>
-					<button class='button regular'>/</button>
-					<button class='button regular'>7</button>
-					<button class='button regular'>8</button>
-					<button class='button regular'>9</button>
-					<button class='button regular'>x</button>
-					<button class='button regular'>4</button>
-					<button class='button regular'>5</button>
-					<button class='button regular'>6</button>
-					<button class='button regular'>-</button>
-					<button class='button regular'>1</button>
-					<button class='button regular'>2</button>
-					<button class='button regular'>3</button>
-					<button class='button regular'>+</button>
-					<button class='button regular'>0</button>
-					<button class='button regular'>.</button>
-					<button class='button special' data-type='lrg-btn'>=</button>
+					<button id='undo' class='button special' data-type='lrg-btn'>Undo</button>
+					<button id='powerOff' class='button special' data-type='poweroff-btn'><img class='poweroff' src='img/poweroff.png'></button>
+					<button class='button operator | regular'>/</button>
+					<button class='button operand | regular'>7</button>
+					<button class='button operand | regular'>8</button>
+					<button class='button operand | regular'>9</button>
+					<button class='button operator | regular'>x</button>
+					<button class='button operand | regular'>4</button>
+					<button class='button operand | regular'>5</button>
+					<button class='button operand | regular'>6</button>
+					<button class='button operator | regular'>-</button>
+					<button class='button operand | regular'>1</button>
+					<button class='button operand | regular'>2</button>
+					<button class='button operand | regular'>3</button>
+					<button class='button operator | regular'>+</button>
+					<button class='button operand | regular'>0</button>
+					<button id='floatingPoint' class='button special'>.</button>
+					<button id='equals' class='button special' data-type='lrg-btn'>=</button>
 			</div>
 		</div>
 	</body>

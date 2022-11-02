@@ -1,74 +1,70 @@
-const display = document.querySelector('p');
-const regInputs = document.querySelectorAll('.button.regular');
-const specialInputs = document.querySelectorAll('button.special');
-
-regInputs.forEach(input => input.addEventListener('click', e => displayVal(e.target.innerText)));
-
-// Display function
-
-function displayVal(value) {
-	const operands = ['x', '/', '-', '+',];
-	if (operands.find(operand => operand === value) && display.innerText === '') {
-		display.innerText = 'ERROR';
-	} else {
-		display.innerText = '';
-		display.innerText += value;
+const calculation = {
+	operand1 : [],
+	operator : [],
+	operand2 : [],
+	calculate(operand1, operator, operand2) {
+		const calcArr = [operand1, operator, operand2];
+		switch (this.operator) {
+			case '/':
+				divide(calcArr[0], calcArr[2]);
+				break;
+			case 'x':
+				multiply(calcArr[0], calcArr[2]);
+				break;
+			case '+':
+				add(calcArr[0], calcArr[2]);
+				break;
+			case '-':
+				subtract(calcArr[0], calcArr[2]);
+		}
 	}
 };
 
-// Calculate function
+const operatorSymbs = ['/', 'x', '-', '+'];
 
-// if the display was clear and user inputs a number
-// create a new object called calculation with the first input being a property of firstnum
-// for each additional number input thereafter append the firstnum property with said number
-// until user inputs an operator
-// when user inputs an operator, create a new property for the calculation object called operator and store the input operator as it's value
-// if the user inputs another operator, replace the operator property with a the new one
-// until user inputs another number
-// when user inputs a number, repeat the firstnum property logic but with a new property called secondnum
-// until user inputs another operator or equals
-// if user inputs another operator
-// store the result of the in the firstnum property and display it on the calculator display
-// and store the operator in the operator property
-// else just store the result in the fistnum property and display it
-// if user presses poweroff, all the object is removed
-// else if user inputs undo, the move back to the previous step?
+// Display
+ const displayContent = document.querySelector('.displayContent');
 
-// Operator functions
+// Regular buttons (\operators and operands)
+ const operands = document.querySelectorAll('.button.operand');
+ const operators = document.querySelectorAll('button.operator');
 
-function add(num1, num2) {
-	return num1 + num2;
-}
+// Special buttons
+ const undo = document.querySelector('#undo');
+ const powerOff = document.querySelector('#powerOff');
+ const floatingPoint = document.querySelector('#floatingPoint');
+ const equals = document.querySelector('#equals');
 
-function subtract(num1, num2) {
-	return num1 - num2;
-}
+// Event listeners for buttons
+operands.forEach(operand => operand.addEventListener('click', e => updateOperand1(e.target.innerText)));
+operators.forEach(operator => operator.addEventListener('click', e => updateOperator(e.target.innerText)));
 
-function multiply(num1, num2) {
-	return num1 * num2;
-}
+undo.addEventListener('click', e => console.log(e.target.innerText));
+powerOff.addEventListener('click', e => console.log(e.target.innerText));
+floatingPoint.addEventListener('click', e => console.log(e.target.innerText));
+equals.addEventListener('click', e => console.log(e.target.innerText));
 
-function divide(num1, num2) {
-	return num1 / num2;
-}
-
-// Operate function
-
-function operate(operator, num1, num2) {
-	switch (operator) {
-		case add:
-			return add(num1, num2);
-			break;
-		case subtract:
-			return subtract(num1, num2);
-			break;
-		case multiply:
-			return multiply(num1, num2);
-			break;
-		case divide:
-			return divide(num1, num2);
+// Functions
+function updateOperator(operator) {
+	if ((displayContent.innerText === '' || operatorSymbs.find(arrValue => arrValue === displayContent.innerText)) && (operatorSymbs.find(arrValue => arrValue === operator))) {
+		displayContent.innerText = 'Error';
+	} else {
+		calculation.operator = operator;
+		displayContent.innerText = calculation.operator;
 	}
 }
 
-// Display function
- 
+function updateOperand1(operand) {
+	if (calculation.operator !== '') {
+		updateOperand2(operand);
+	} else if (calculation.operand1.length >= 1) {
+		calculation.operand1.push(operand);
+		displayContent.innerText = calculation.operand1.join(',');
+	}
+	if ((displayContent.innerText === '' || operatorSymbs.find(arrValue => arrValue === displayContent.innerText)) && (operatorSymbs.find(arrValue => arrValue === operator))) {
+		displayContent.innerText = 'Error';
+	} else if (displayContent.innerText / 1 !== undefined) {
+		displayContent.innerText += operand.toString();
+	} else
+		displayContent.innerText = operand;
+}
