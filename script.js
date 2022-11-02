@@ -2,14 +2,12 @@ const display = document.querySelector('p');
 const regInputs = document.querySelectorAll('.button.regular');
 const specialInputs = document.querySelectorAll('button.special');
 
-regInputs.forEach(input => input.addEventListener('click', e => {
-	displayVal(e.target.innerText);
-}));
+regInputs.forEach(input => input.addEventListener('click', e => displayVal(e.target.innerText)));
 
 // Display function
 
 function displayVal(value) {
-	const operands = ['x', '/', '-', '+',]
+	const operands = ['x', '/', '-', '+',];
 	if (operands.find(operand => operand === value) && display.innerText === '') {
 		display.innerText = 'ERROR';
 	} else {
@@ -35,8 +33,6 @@ function displayVal(value) {
 // else just store the result in the fistnum property and display it
 // if user presses poweroff, all the object is removed
 // else if user inputs undo, the move back to the previous step?
-
-function calculate ()
 
 // Operator functions
 
