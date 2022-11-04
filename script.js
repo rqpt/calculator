@@ -1,70 +1,87 @@
-const calculation = {
-	operand1 : [],
-	operator : [],
-	operand2 : [],
-	calculate(operand1, operator, operand2) {
-		const calcArr = [operand1, operator, operand2];
-		switch (this.operator) {
-			case '/':
-				divide(calcArr[0], calcArr[2]);
-				break;
-			case 'x':
-				multiply(calcArr[0], calcArr[2]);
-				break;
-			case '+':
-				add(calcArr[0], calcArr[2]);
-				break;
-			case '-':
-				subtract(calcArr[0], calcArr[2]);
-		}
-	}
-};
-
-const operatorSymbs = ['/', 'x', '-', '+'];
-
-// Display
+// QUERYSELECTORS
+ 
+// Display - display the inputs and results to the user
  const displayContent = document.querySelector('.displayContent');
 
-// Regular buttons (\operators and operands)
+// Inputs - user interacts with these
  const operands = document.querySelectorAll('.button.operand');
  const operators = document.querySelectorAll('button.operator');
-
-// Special buttons
- const undo = document.querySelector('#undo');
- const powerOff = document.querySelector('#powerOff');
+ const undoBtn = document.querySelector('#undo');
+ const powerBtn = document.querySelector('#powerOff');
  const floatingPoint = document.querySelector('#floatingPoint');
  const equals = document.querySelector('#equals');
 
-// Event listeners for buttons
-operands.forEach(operand => operand.addEventListener('click', e => updateOperand1(e.target.innerText)));
-operators.forEach(operator => operator.addEventListener('click', e => updateOperator(e.target.innerText)));
 
-undo.addEventListener('click', e => console.log(e.target.innerText));
-powerOff.addEventListener('click', e => console.log(e.target.innerText));
-floatingPoint.addEventListener('click', e => console.log(e.target.innerText));
-equals.addEventListener('click', e => console.log(e.target.innerText));
+// EVENTLISTENERS - 
 
-// Functions
-function updateOperator(operator) {
-	if ((displayContent.innerText === '' || operatorSymbs.find(arrValue => arrValue === displayContent.innerText)) && (operatorSymbs.find(arrValue => arrValue === operator))) {
-		displayContent.innerText = 'Error';
+// Operands and operators
+operands.forEach(operand => operand.addEventListener('click', e => calculate(e.target.innerText)));
+operators.forEach(operator => operator.addEventListener('click', e => calculate(e.target.innerText)));
+
+// Special inputs
+undoBtn.addEventListener('click', () => undo());
+powerBtn.addEventListener('click', () => powerOff());
+floatingPoint.addEventListener('click', e => calculate(e.target.innerText));
+equals.addEventListener('click', e => calculate(e.target.innerText));
+
+
+// FUNCTIONS
+const add = (num1, num2) => +num1 + +num2;
+const multiply = (num1, num2) => num1 * num2;
+const subtract = (num1, num2) => num1 - num2;
+const divide = (num1, num2) => num1 / num2;
+
+let operand1 = [];
+let operator;
+let operand2 = [];
+let result;
+
+function calculate(input) {
+	if (input % 1 === 0 || input === '.') {
+		if (operator === undefined) {
+			operand1.push(input);
+			displayContent.innerText = operand1.join('');
+		} else {
+			operand2.push(input);
+			displayContent.innerText = operand2.join('');
+		}
+	} else if (operator === undefined) {
+		operator = input;
+		displayContent.innerText = input;
 	} else {
-		calculation.operator = operator;
-		displayContent.innerText = calculation.operator;
+		switch (operator) {
+			case 'x':
+				result = multiply(operand1.join(''), operand2.join(''));
+				break;
+			case '/':
+				result = divide(operand1.join(''), operand2.join(''));
+				break;
+			case '+':
+				result = add(operand1.join(''), operand2.join(''));
+				break;
+			case '-':
+				result = subtract(operand1.join(''), operand2.join(''));
+		}
+		displayContent.innerText = result;
+		operand1 = [`${result}`];
+		operand2 = [];
 	}
 }
 
-function updateOperand1(operand) {
-	if (calculation.operator !== '') {
-		updateOperand2(operand);
-	} else if (calculation.operand1.length >= 1) {
-		calculation.operand1.push(operand);
-		displayContent.innerText = calculation.operand1.join(',');
+function powerOff() {
+	operand1 = []
+	operator = undefined
+	operand2 = []
+	result = undefined
+	displayContent.innerText = '';
+}
+
+function undo() {
+	if (operand2.length === 0) {
+	operand1.pop()
+	displayContent.innerText = operand1.join('');
+	} else {
+	operand2.pop()
+	displayContent.innerText = operand2.join('');
 	}
-	if ((displayContent.innerText === '' || operatorSymbs.find(arrValue => arrValue === displayContent.innerText)) && (operatorSymbs.find(arrValue => arrValue === operator))) {
-		displayContent.innerText = 'Error';
-	} else if (displayContent.innerText / 1 !== undefined) {
-		displayContent.innerText += operand.toString();
-	} else
-		displayContent.innerText = operand;
 }
