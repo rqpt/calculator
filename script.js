@@ -37,7 +37,8 @@ let operand2 = [];
 let result;
 
 function calculate(input) {
-	if (input % 1 === 0 || input === '.') {
+	const operators = ['/', 'x', '-', '+'];
+	if ((input % 1 === 0 || input === '.')) {
 		if (operator === undefined) {
 			operand1.push(input);
 			displayContent.innerText = operand1.join('');
@@ -45,22 +46,33 @@ function calculate(input) {
 			operand2.push(input);
 			displayContent.innerText = operand2.join('');
 		}
-	} else if (operator === undefined) {
+	} else if ((operator === undefined) && (operators.find(operator => operator === input))) {
 		operator = input;
 		displayContent.innerText = input;
+	} else if ((operator !== undefined) && (operators.find(operator => operator === input) && operand2.length === 0) 
+					|| ((operand1.join('') === '0') && (input === '/'))){
+		displayContent.innerText = 'Error';
+		operand1 = []
+		operator = undefined
+		operand2 = []
+		result = undefined
 	} else {
 		switch (operator) {
 			case 'x':
 				result = multiply(operand1.join(''), operand2.join(''));
+				operator = input;
 				break;
 			case '/':
 				result = divide(operand1.join(''), operand2.join(''));
+				operator = input;
 				break;
 			case '+':
 				result = add(operand1.join(''), operand2.join(''));
+				operator = input;
 				break;
 			case '-':
 				result = subtract(operand1.join(''), operand2.join(''));
+				operator = input;
 		}
 		displayContent.innerText = result;
 		operand1 = [`${result}`];
