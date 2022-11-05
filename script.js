@@ -42,7 +42,7 @@ let result;
 // Main function - 
 // this takes the user inputs, change the operator and operand variables and call the display funcs accordingly
 function calculate(input) {
-	if ((input % 1 === 0 || input === '.')) {
+	if (input % 1 === 0 || input === '.') {
 		if (operator === undefined) {
 			operand1.push(input);
 			displayOperand1();
@@ -50,9 +50,11 @@ function calculate(input) {
 			operand2.push(input);
 			displayOperand2();
 		}
-	} else if (operator === undefined ) {
+	} else if (operator === undefined && input !== '=') {
 		operator = input;
 		displayOperator();
+	} else if (operator === undefined && input === '=') {
+		return;
 	} else if (operand2.length === 0 
 		|| operand1.join('') === '0' && operator === '/') {
 		clearVars();
