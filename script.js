@@ -54,7 +54,7 @@ function calculate(input) {
 		operator = input;
 		displayOperator();
 	} else if (operator === undefined && input === '=') {
-		return;
+		clearVars();
 	} else if (operand2.length === 0 
 		|| operand1.join('') === '0' && operator === '/') {
 		clearVars();
