@@ -22,7 +22,7 @@ floatingPoint.addEventListener('click', e => calculate(e.target.innerText));
 // Special inputs
 undoBtn.addEventListener('click', () => undo());
 powerBtn.addEventListener('click', () => powerOff());
-equals.addEventListener('click', () => eq());
+equals.addEventListener('click', e => calculate(e.target.innerText));
 
 
 // FUNCTIONS
@@ -42,56 +42,56 @@ let result;
 // Main function - 
 // this takes the user inputs, change the operator and operand variables and call the display funcs accordingly
 function calculate(input) {
-	const operators = ['/', 'x', '-', '+'];
 	if ((input % 1 === 0 || input === '.')) {
 		if (operator === undefined) {
 			operand1.push(input);
-			console.log(operand1)
 			displayOperand1();
 		} else {
 			operand2.push(input);
 			displayOperand2();
 		}
-	} else if ((operator === undefined) && (operators.find(operator => operator === input))) {
+	} else if (operator === undefined ) {
 		operator = input;
 		displayOperator();
-	} else if ((operator !== undefined) && (operators.find(operator => operator === input) && operand2.length === 0) 
-		|| ((operand1.join('') === '0') && (operator === '/'))){
+	} else if (operand2.length === 0 
+		|| operand1.join('') === '0' && operator === '/') {
 		clearVars();
 		displayError();
+	} else if (input === '=') {
+		eq();
+		operand1 = [`${result}`];
+		operator = undefined;
+		operand2 = []
+		result = undefined;
 	} else {
-		eq(operator);
+		eq();
+		operand1 = [`${result}`];
+		operator = input;
+		operand2 = [];
+		result = undefined;
+	}
+}
+
+// Equals function - runs when equals is clicked or a second operator is clicked 
+function eq() {
+	switch (operator) {
+		case 'x':
+			result = multiply(operand1.join(''), operand2.join(''));
+			break;
+		case '/':
+			result = divide(operand1.join(''), operand2.join(''));
+			break;
+		case '+':
+			result = add(operand1.join(''), operand2.join(''));
+			break;
+		case '-':
+			result = subtract(operand1.join(''), operand2.join(''));
 	}
 	if (result > 99999999) {
 		clearVars();
 		displayError();
 	} else {
 		displayResult();
-	}
-}
-
-function eq(value) {
-	if (operand2.length > 0) {
-		switch (value) {
-			case 'x':
-				result = multiply(operand1.join(''), operand2.join(''));
-				operator = value;
-				break;
-			case '/':
-				result = divide(operand1.join(''), operand2.join(''));
-				operator = value;
-				break;
-			case '+':
-				result = add(operand1.join(''), operand2.join(''));
-				operator = value;
-				break;
-			case '-':
-				result = subtract(operand1.join(''), operand2.join(''));
-				operator = value;
-		}
-	} else {
-		displayError();
-		clearVars();
 	}
 }
 
