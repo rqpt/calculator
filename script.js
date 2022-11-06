@@ -18,11 +18,17 @@
 operands.forEach(operand => operand.addEventListener('click', e => calculate(e.target.innerText)));
 operators.forEach(operator => operator.addEventListener('click', e => calculate(e.target.innerText)));
 floatingPoint.addEventListener('click', e => calculate(e.target.innerText));
+operands.forEach(operand => operand.addEventListener('keydown', e => calculate(e.target.innerText)));
+operators.forEach(operator => operator.addEventListener('keydown', e => calculate(e.target.innerText)));
+floatingPoint.addEventListener('keydown', e => calculate(e.target.innerText));
 
 // Special inputs
 undoBtn.addEventListener('click', () => undo());
 powerBtn.addEventListener('click', () => powerOff());
 equals.addEventListener('click', e => calculate(e.target.innerText));
+undoBtn.addEventListener('keydown', () => undo());
+powerBtn.addEventListener('keydown', () => powerOff());
+equals.addEventListener('keydown', e => calculate(e.target.innerText));
 
 
 // FUNCTIONS
@@ -38,11 +44,15 @@ let operand1 = [];
 let operator;
 let operand2 = [];
 let result;
+const roundResult = Math.round((result * (10**3))) / (10**3);
 
 // Main function - 
 // this takes the user inputs, change the operator and operand variables and call the display funcs accordingly
 function calculate(input) {
-	if (input % 1 === 0 || input === '.') {
+	if(checkTooLong() || checkDots()) {
+		clearVars();
+		displayError();
+	} else if (input % 1 === 0 || input === '.') {
 		if (operator === undefined) {
 			operand1.push(input);
 			displayOperand1();
@@ -56,7 +66,7 @@ function calculate(input) {
 	} else if (operator === undefined && input === '=') {
 		clearVars();
 	} else if (operand2.length === 0 
-		|| operand1.join('') === '0' && operator === '/') {
+		|| (operand1.join('') === '0' || operand1.length === 0) && operator === '/') {
 		clearVars();
 		displayError();
 	} else if (input === '=') {
@@ -139,10 +149,18 @@ function undo() {
 	}
 }
 
-// Utility function - reset all variable values
+// Utility functions
 function clearVars() {
 	operand1 = [];
 	operator = undefined;
 	operand2 = [];
 	result = undefined;
+}
+
+function checkTooLong() {
+	return operand1.length > 9 || operand2.length > 9 || String(roundResult).split('').length > 9;
+}
+
+function checkDots() {
+	return operand1.filter(operand => operand === '.').length > 1 || operand2.filter(operand => operand === '.').length > 1;
 }
