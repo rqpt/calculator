@@ -9,6 +9,13 @@ body {
 
 }
 
+* {
+	box-sizing: border-box;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
 .container {
 	background-color: hsl(216  65%  61%);
 }
@@ -20,12 +27,6 @@ body {
 .button {
 	font-size: 3rem;
 	font-weight: bold;
-}
-
-* {
-	border: 0;
-	margin: 0;
-	padding: 0;
 }
 
 body {
@@ -75,11 +76,9 @@ button[data-type='lrg-btn'] {
 }
 
 .poweroff {
-	width: 50%;
-}
-
-.button[data-type=poweroff-btn] {
-	background-color: hsl(345 66% 40%);
+	width: 40%;
+	position: relative;
+	top: 0.2rem;
 }
 
 .rounded-corners, button{
@@ -96,4 +95,17 @@ button[data-type='lrg-btn'] {
 	right: 0.5rem;
 	bottom: 2rem;
 	text-align: right;
+}
+
+.button.operator {
+	background-color: hsl(188 50% 35%);
+}
+
+.button.operand,
+#floatingPoint {
+	background-color: hsl(120 25% 72%);
+}
+
+.button.special {
+	background-color: hsl(330 28% 65%);
 }
